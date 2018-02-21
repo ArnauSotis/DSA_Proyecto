@@ -24,7 +24,7 @@ public class Juego extends JFrame implements Runnable{
     }
 
     public void run(){}
-    public static void main2(String[] args)
+    public static void main(String[] args)
     {
         Juego juego = new Juego();
         Thread juegoThread = new Thread(juego);
