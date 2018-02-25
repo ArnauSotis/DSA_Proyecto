@@ -19,9 +19,6 @@ public class RenderHandler {
 
         camara = new Rectangulo(0,0,width,height);
 
-        camara.x = -100;
-        camara.y= -30;
-
         pixels = ((DataBufferInt) view.getRaster().getDataBuffer()).getData();
 
     }
@@ -36,23 +33,32 @@ public class RenderHandler {
 
     // Renderiza la imagen a nuestros píxeles
     // El zoom hace que el píxel sea el doble hacia la izquierda (x) o hacia abajo (y)
-    public void renderImagen(BufferedImage image, int xPosicion, int yPosicion, int xZoom, int yZoom)
+    public void renderImagen(BufferedImage image, int xPosition, int yPosition, int xZoom, int yZoom)
     {
         int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+        renderArray(imagePixels, image.getWidth(), image.getHeight(), xPosition, yPosition, xZoom, yZoom);
+    }
+    public void renderArray(int[] renderPixels, int renderWidth, int renderHeight, int xPosition, int yPosition, int xZoom, int yZoom)
+    {
+        for(int y = 0; y < renderHeight; y++)
+            for(int x = 0; x < renderWidth; x++)
+                for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++)
+                    for(int xZoomPosition = 0; xZoomPosition < xZoom; xZoomPosition++)
+                        setPixel(renderPixels[x + y * renderWidth], (x * xZoom) + xPosition + xZoomPosition, ((y * yZoom) + yPosition + yZoomPosition));
+    }
 
-        for (int y=0; y<image.getHeight();y++)
-        { for(int x=0;x<image.getWidth();x++)
-            { for(int yZoomPosicion=0; yZoomPosicion<yZoom;yZoomPosicion++)
-                {for (int xZoomPosicion = 0; xZoomPosicion < xZoom; xZoomPosicion++)
-                    {
+    public void renderTerreno(int width, int height, BufferedImage imagen, BufferedImage imagenSprite)
+    {
+        for(int y=0;y<height;y=y+32)
+        {
+            for(int x=0;x<width;x=x+32)
+            {
+                renderImagen(imagen, x, y, 2, 2);
 
-                        setPixel(imagePixels[x + y * image.getWidth()], (x*xZoom) + xPosicion+xZoomPosicion,  ((yZoom*y) + yPosicion + yZoomPosicion));
-                        //Muy difícil de entender!!! algoritmo sacado de un ingeniero de stackoverflow, el xZoom multiplicando hace que pase varias veces
-                        //el color por el mismo píxel!!
-                    }
-                }
             }
         }
+        renderImagen(imagenSprite,200,200,1,1);
+
     }
 
     private void setPixel(int pixel, int x, int y)

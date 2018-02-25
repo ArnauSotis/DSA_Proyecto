@@ -27,6 +27,7 @@ public class Menuprincipal extends JFrame{
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+
                 frame.dispose();
 
 
