@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Menuprincipal extends JFrame{
     private JPanel panel1;
@@ -21,7 +22,11 @@ public class Menuprincipal extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                juego.main(null);
+                try {
+                    juego.main(null);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 frame.dispose();
 
 
@@ -37,4 +42,5 @@ public class Menuprincipal extends JFrame{
         Menuprincipal mp = new Menuprincipal();
 
     }
+
 }
