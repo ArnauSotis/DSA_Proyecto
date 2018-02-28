@@ -11,6 +11,9 @@ public class RenderHandler {
     private Rectangulo camara;
     private SpriteAnimado spriteAnimado;
 
+    private int xPosicion;
+    private int yPosicion;
+
     public RenderHandler(int width, int height)
     {
 
@@ -50,13 +53,13 @@ public class RenderHandler {
                         setPixel(renderPixels[x + y * renderWidth], (x * xZoom) + xPosition + xZoomPosition, ((y * yZoom) + yPosition + yZoomPosition));
     }
 
-    public void renderImagen2(BufferedImage image, int xPosition, int yPosition, int xZoom, int yZoom)
+    public void renderImagenSprite(BufferedImage image, int xPosition, int yPosition, int xZoom, int yZoom)
     {
         int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-        renderArray2(imagePixels, image.getWidth(), image.getHeight(), xPosition, yPosition, xZoom, yZoom);
+        renderArraySprite(imagePixels, image.getWidth(), image.getHeight(), xPosition, yPosition, xZoom, yZoom);
     }
 
-    public void renderArray2(int[] renderPixels, int renderWidth, int renderHeight, int xPosition, int yPosition, int xZoom, int yZoom)
+    public void renderArraySprite(int[] renderPixels, int renderWidth, int renderHeight, int xPosition, int yPosition, int xZoom, int yZoom)
     {
         for(int y = 0; y < renderHeight; y++)
             for(int x = 0; x < renderWidth; x++)
@@ -69,7 +72,7 @@ public class RenderHandler {
                     }
     }
 
-    public void renderTerreno(int width, int height, BufferedImage imagen, BufferedImage imagenSprite)
+    public void renderTerreno(int width, int height, BufferedImage imagen, BufferedImage imagenSprite, int direccion)
     {
         for(int y=0;y<height;y=y+32)
         {
@@ -79,7 +82,18 @@ public class RenderHandler {
 
             }
         }
-        renderImagen2(imagenSprite,200,200,4,4);
+        if (direccion==1){
+            this.yPosicion=yPosicion-5;
+            renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
+        if (direccion==2){
+            this.xPosicion=xPosicion+5;
+            renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
+        if (direccion==3){
+            this.yPosicion=yPosicion+5;
+            renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
+        if (direccion==4){
+            this.xPosicion=xPosicion-5;
+            renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
 
     }
 

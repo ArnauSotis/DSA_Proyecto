@@ -108,13 +108,13 @@ public class Juego extends JFrame implements Runnable{
 
         // Algoritmo diseñado por mi para rellenar todo el mapa de la Tile
         if(teclado.key==2){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer2);}
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer2,2);}
         if(teclado.key==1){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer1);}
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer1,1);}
         if(teclado.key==3){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer3);}
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer3,3);}
         if(teclado.key==4){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer4);}
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer4,4);}
 
 
          renderer.render(graphics);
