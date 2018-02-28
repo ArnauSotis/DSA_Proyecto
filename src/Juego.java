@@ -10,8 +10,9 @@ public class Juego extends JFrame implements Runnable{
 
     private Canvas canvas = new Canvas();
     private RenderHandler renderer;
-    BufferedImage tierra;
-    BufferedImage spritePlayer;
+    private BufferedImage tierra;
+    private BufferedImage spritePlayer1, spritePlayer2, spritePlayer3, spritePlayer4;
+    private MovimientoTeclado teclado = new MovimientoTeclado();
 
     public Juego() throws IOException {
 
@@ -37,7 +38,11 @@ public class Juego extends JFrame implements Runnable{
         renderer = new RenderHandler(getWidth(),getHeight());
 
         tierra = loadImage("images/GrassTile.png");
-        spritePlayer = loadImage("images/Player.png");
+        spritePlayer2 = loadImage("images/PlayerDerecha1.png");
+        spritePlayer4 = loadImage("images/PlayerIzquierda1.png");
+        spritePlayer1 = loadImage("images/PlayerArriba1.png");
+        spritePlayer3 = loadImage("images/PlayerAbajo1.png");
+
 
 
     }
@@ -75,7 +80,11 @@ public class Juego extends JFrame implements Runnable{
 
             }
 
-            render();
+            try {
+                render();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             lastTime = now;
 
         }
@@ -83,17 +92,30 @@ public class Juego extends JFrame implements Runnable{
 
     }
 
-    public void render() {
+    public void render() throws IOException {
         //Mete el array de píxeles en la pantalla
 
+
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
+
+        canvas.addKeyListener(teclado);
+        canvas.addFocusListener(teclado);
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
         paint(graphics);
 
+
         // Algoritmo diseñado por mi para rellenar todo el mapa de la Tile
-         renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer);
+        if(teclado.key==2){
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer2);}
+        if(teclado.key==1){
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer1);}
+        if(teclado.key==3){
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer3);}
+        if(teclado.key==4){
+            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer4);}
+
 
          renderer.render(graphics);
 

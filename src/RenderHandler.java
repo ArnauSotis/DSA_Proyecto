@@ -2,12 +2,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
 
 public class RenderHandler {
 
     private BufferedImage view;
     private int[] pixels;
     private Rectangulo camara;
+    private SpriteAnimado spriteAnimado;
 
     public RenderHandler(int width, int height)
     {
@@ -38,6 +40,7 @@ public class RenderHandler {
         int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
         renderArray(imagePixels, image.getWidth(), image.getHeight(), xPosition, yPosition, xZoom, yZoom);
     }
+
     public void renderArray(int[] renderPixels, int renderWidth, int renderHeight, int xPosition, int yPosition, int xZoom, int yZoom)
     {
         for(int y = 0; y < renderHeight; y++)
@@ -45,6 +48,25 @@ public class RenderHandler {
                 for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++)
                     for(int xZoomPosition = 0; xZoomPosition < xZoom; xZoomPosition++)
                         setPixel(renderPixels[x + y * renderWidth], (x * xZoom) + xPosition + xZoomPosition, ((y * yZoom) + yPosition + yZoomPosition));
+    }
+
+    public void renderImagen2(BufferedImage image, int xPosition, int yPosition, int xZoom, int yZoom)
+    {
+        int[] imagePixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+        renderArray2(imagePixels, image.getWidth(), image.getHeight(), xPosition, yPosition, xZoom, yZoom);
+    }
+
+    public void renderArray2(int[] renderPixels, int renderWidth, int renderHeight, int xPosition, int yPosition, int xZoom, int yZoom)
+    {
+        for(int y = 0; y < renderHeight; y++)
+            for(int x = 0; x < renderWidth; x++)
+                for(int yZoomPosition = 0; yZoomPosition < yZoom; yZoomPosition++)
+                    for(int xZoomPosition = 0; xZoomPosition < xZoom; xZoomPosition++) {
+                        int pixel = renderPixels[x + y * renderWidth];
+                        if (pixel != 0xFF00DC) {
+                            setPixel(pixel, (x * xZoom) + xPosition + xZoomPosition, ((y * yZoom) + yPosition + yZoomPosition));
+                        }
+                    }
     }
 
     public void renderTerreno(int width, int height, BufferedImage imagen, BufferedImage imagenSprite)
@@ -57,7 +79,7 @@ public class RenderHandler {
 
             }
         }
-        renderImagen(imagenSprite,200,200,1,1);
+        renderImagen2(imagenSprite,200,200,4,4);
 
     }
 

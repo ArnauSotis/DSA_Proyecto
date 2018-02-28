@@ -3,17 +3,12 @@ public class Rectangulo {
     //x, y, ancho, largo
     private int[] pixels;
 
-    Rectangulo(int x, int y, int w, int h)
+   public Rectangulo(int x, int y, int w, int h)
     {
         this.x=x;
         this.y=y;
         this.w=w;
         this.h=h;
-    }
-
-    Rectangulo()
-    {
-        this(0,0,0,0);
     }
 
     public void generarGraphics(int color)
