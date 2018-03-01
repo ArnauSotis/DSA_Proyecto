@@ -94,6 +94,9 @@ public class RenderHandler {
         if (direccion==4){
             this.xPosicion=xPosicion-5;
             renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
+        if (direccion==5){
+            renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
+
 
     }
 

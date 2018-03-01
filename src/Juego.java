@@ -4,6 +4,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Juego extends JFrame implements Runnable{
@@ -11,8 +13,10 @@ public class Juego extends JFrame implements Runnable{
     private Canvas canvas = new Canvas();
     private RenderHandler renderer;
     private BufferedImage tierra;
-    private BufferedImage spritePlayer1, spritePlayer2, spritePlayer3, spritePlayer4;
-    private MovimientoTeclado teclado = new MovimientoTeclado();
+    private BufferedImage spritePlayer1, spritePlayer2, spritePlayer3, spritePlayer4,spritePlayer1ataque, spritePlayer2ataque, spritePlayer3ataque, spritePlayer4ataque;
+    private MovimientoTeclado teclado = new MovimientoTeclado(this);
+    Timer timer = new Timer();
+
 
     public Juego() throws IOException {
 
@@ -37,11 +41,18 @@ public class Juego extends JFrame implements Runnable{
 
         renderer = new RenderHandler(getWidth(),getHeight());
 
-        tierra = loadImage("images/GrassTile.png");
-        spritePlayer2 = loadImage("images/PlayerDerecha1.png");
-        spritePlayer4 = loadImage("images/PlayerIzquierda1.png");
-        spritePlayer1 = loadImage("images/PlayerArriba1.png");
-        spritePlayer3 = loadImage("images/PlayerAbajo1.png");
+            tierra = loadImage("images/GrassTile.png");
+            spritePlayer2 = loadImage("images/PlayerDerecha1.png");
+            spritePlayer4 = loadImage("images/PlayerIzquierda1.png");
+            spritePlayer1 = loadImage("images/PlayerArriba1.png");
+            spritePlayer3 = loadImage("images/PlayerAbajo1.png");
+            spritePlayer2ataque = loadImage("images/PlayerDerecha1ataque.png");
+            spritePlayer4ataque = loadImage("images/PlayerIzquierda1ataque.png");
+            spritePlayer1ataque = loadImage("images/PlayerArriba1ataque.png");
+            spritePlayer3ataque = loadImage("images/PlayerAbajo1ataque.png");
+
+
+
 
 
 
@@ -91,30 +102,54 @@ public class Juego extends JFrame implements Runnable{
 
 
     }
+    public MovimientoTeclado getKeyListener()
+    {
+        return teclado;
+    }
+
 
     public void render() throws IOException {
         //Mete el array de píxeles en la pantalla
 
 
+
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
 
-        canvas.addKeyListener(teclado);
-        canvas.addFocusListener(teclado);
 
         Graphics graphics = bufferStrategy.getDrawGraphics();
 
         paint(graphics);
 
+        canvas.addKeyListener(teclado);
+
+
 
         // Algoritmo diseñado por mi para rellenar todo el mapa de la Tile
-        if(teclado.key==2){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer2,2);}
-        if(teclado.key==1){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer1,1);}
-        if(teclado.key==3){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer3,3);}
-        if(teclado.key==4){
-            renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer4,4);}
+        if(teclado.espada==0) {
+            if (teclado.key == 2) {
+                renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer2, 2);
+            }
+            if (teclado.key == 1) {
+                renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer1, 1);
+            }
+            if (teclado.key == 3) {
+                renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer3, 3);
+            }
+            if (teclado.key == 4) {
+                renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer4, 4);
+            }
+        }
+        if(teclado.espada!=0){
+            if(teclado.key==1)
+                renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer1ataque,1);
+            if(teclado.key==2)
+                renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer2ataque,2);
+            if(teclado.key==3)
+                renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer3ataque,3);
+            if(teclado.key==4)
+                renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer4ataque,4);
+
+        }
 
 
          renderer.render(graphics);
