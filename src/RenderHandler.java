@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferInt;
-import java.util.ArrayList;
 
 public class RenderHandler {
 
@@ -72,7 +70,7 @@ public class RenderHandler {
                     }
     }
 
-    public void renderTerreno(int width, int height, BufferedImage imagen, BufferedImage imagenSprite, int direccion)
+    public void renderEscenario1(int width, int height, BufferedImage imagen, BufferedImage imagenSprite, int direccion, BufferedImage imagenPrincesa)
     {
         for(int y=0;y<height;y=y+32)
         {
@@ -96,6 +94,8 @@ public class RenderHandler {
             renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
         if (direccion==5){
             renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
+
+            renderImagenSprite(imagenPrincesa, 500,500,4,4);
 
 
     }
