@@ -16,6 +16,7 @@ public class Juego extends JFrame implements Runnable{
     private BufferedImage spritePlayer1, spritePlayer2, spritePlayer3, spritePlayer4,spritePlayer1ataque, spritePlayer2ataque, spritePlayer3ataque, spritePlayer4ataque;
     private MovimientoTeclado teclado = new MovimientoTeclado(this);
     Timer timer = new Timer();
+    private SpriteAnimado spriteAnimado = new SpriteAnimado();
 
 
     public Juego() throws IOException {
@@ -39,7 +40,6 @@ public class Juego extends JFrame implements Runnable{
         //Meto un buffer en el canvas para quitar el efecto flicker
         canvas.createBufferStrategy(3);
 
-        renderer = new RenderHandler(getWidth(),getHeight());
 
             tierra = loadImage("images/GrassTile.png");
             spritePlayer2 = loadImage("images/PlayerDerecha1.png");
@@ -51,8 +51,12 @@ public class Juego extends JFrame implements Runnable{
             spritePlayer1ataque = loadImage("images/PlayerArriba1ataque.png");
             spritePlayer3ataque = loadImage("images/PlayerAbajo1ataque.png");
 
+            spriteAnimado.setSpriteActual(spritePlayer2);
 
 
+        renderer = new RenderHandler(getWidth(),getHeight());
+
+        canvas.addKeyListener(getKeyListener());
 
 
 
@@ -120,48 +124,57 @@ public class Juego extends JFrame implements Runnable{
 
         paint(graphics);
 
-        canvas.addKeyListener(teclado);
-
 
 
         // Algoritmo diseñado por mi para rellenar todo el mapa de la Tile
         if(teclado.espada==0) {
             if (teclado.key == 2) {
                 renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer2, 2);
+                spriteAnimado.setSpriteActual(spritePlayer2);
             }
             if (teclado.key == 1) {
                 renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer1, 1);
+                spriteAnimado.setSpriteActual(spritePlayer1);
             }
             if (teclado.key == 3) {
                 renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer3, 3);
+                spriteAnimado.setSpriteActual(spritePlayer3);
             }
             if (teclado.key == 4) {
                 renderer.renderTerreno(getWidth(), getHeight(), tierra, spritePlayer4, 4);
+                spriteAnimado.setSpriteActual(spritePlayer4);
             }
+            if(teclado.key==0){
+                renderer.renderTerreno(getWidth(),getHeight(),tierra,spriteAnimado.getSpriteActual(),5);}
         }
-        if(teclado.espada!=0){
-            if(teclado.key==1)
+        else if(teclado.espada!=0){
+            if(teclado.key==1){
                 renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer1ataque,1);
-            if(teclado.key==2)
+                spriteAnimado.setSpriteActual(spritePlayer1ataque);}
+            if(teclado.key==2){
                 renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer2ataque,2);
-            if(teclado.key==3)
+                spriteAnimado.setSpriteActual(spritePlayer2ataque);
+            }
+            if(teclado.key==3){
                 renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer3ataque,3);
-            if(teclado.key==4)
+                spriteAnimado.setSpriteActual(spritePlayer3ataque);}
+            if(teclado.key==4){
                 renderer.renderTerreno(getWidth(),getHeight(),tierra,spritePlayer4ataque,4);
+                spriteAnimado.setSpriteActual(spritePlayer4ataque);}
+            if(teclado.key==0){
+                renderer.renderTerreno(getWidth(),getHeight(),tierra,spriteAnimado.getSpriteActual(),5);}
 
         }
-
 
          renderer.render(graphics);
-
 
           graphics.dispose();
 
         // Las imágenes se meten en el buffer, al hacer .show() las imagenes del buffer aparecen, como una carátula de un CD,
         // dibujas en la parte de atrás
         //y con el .show() le das la vuelta y se le el pintado
-        bufferStrategy.show();
 
+        bufferStrategy.show();
     }
 
     public void update(){}

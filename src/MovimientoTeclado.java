@@ -22,7 +22,8 @@ public class MovimientoTeclado implements KeyListener, FocusListener {
 
 
         if(e.getKeyCode()== KeyEvent.VK_X){
-            this.espada=5;}
+            this.espada=5;
+        }
         else if(e.getKeyCode()== KeyEvent.VK_Z){
             this.espada=0;}
         if(this.espada==0){
