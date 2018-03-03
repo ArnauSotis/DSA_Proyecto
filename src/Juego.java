@@ -13,7 +13,7 @@ public class Juego extends JFrame implements Runnable{
     private Canvas canvas = new Canvas();
     private RenderHandler renderer;
     private BufferedImage tierra;
-    private BufferedImage  spritePlayer1, spritePlayer2, spritePlayer3, spritePlayer4,spritePlayer1ataque, spritePlayer2ataque, spritePlayer3ataque, spritePlayer4ataque;
+    private BufferedImage spriteArbusto1, spriteArbusto2, spritePlayer1, spritePlayer2, spritePlayer3, spritePlayer4,spritePlayer1ataque, spritePlayer2ataque, spritePlayer3ataque, spritePlayer4ataque;
     private MovimientoTeclado teclado = new MovimientoTeclado();
     private SpriteAnimado spriteAnimado = new SpriteAnimado();
     public BufferedImage spritePrincesa;
@@ -78,6 +78,7 @@ public class Juego extends JFrame implements Runnable{
         spritePlayer3ataque = loadImage("images/PlayerAbajo1ataque.png");
         spriteAnimado.setSpriteActual(spritePlayer2);
         spritePrincesa = loadImage("images/princesa.png");
+        spriteArbusto1 = loadImage("images/arbusto1.png");
 
     }
     public void run()
@@ -148,40 +149,40 @@ public class Juego extends JFrame implements Runnable{
         // Algoritmo diseñado por mi para rellenar todo el mapa de la Tile
         if(teclado.espada==0) {
             if (teclado.key == 2) {
-                renderer.renderEscenario1(getWidth, getHeight, tierra, spritePlayer2, 2, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight, tierra, spritePlayer2, 2, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer2);
             }
             if (teclado.key == 1) {
-                renderer.renderEscenario1(getWidth, getHeight, tierra, spritePlayer1, 1, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight, tierra, spritePlayer1, 1, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer1);
             }
             if (teclado.key == 3) {
-                renderer.renderEscenario1(getWidth, getHeight,tierra, spritePlayer3, 3, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight,tierra, spritePlayer3, 3, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer3);
             }
             if (teclado.key == 4) {
-                renderer.renderEscenario1(getWidth, getHeight, tierra, spritePlayer4, 4, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight, tierra, spritePlayer4, 4, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer4);
             }
             if(teclado.key==0){
-                renderer.renderEscenario1(getWidth, getHeight,tierra,spriteAnimado.getSpriteActual(),5, spritePrincesa);}
+                renderer.renderEscenario1(getWidth, getHeight,tierra,spriteAnimado.getSpriteActual(),5, spritePrincesa, spriteArbusto1);}
         }
         else if(teclado.espada!=0){
             if(teclado.key==1){
-                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer1ataque,1, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer1ataque,1, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer1ataque);}
             if(teclado.key==2){
-                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer2ataque,2, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer2ataque,2, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer2ataque);
             }
             if(teclado.key==3){
-                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer3ataque,3, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer3ataque,3, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer3ataque);}
             if(teclado.key==4){
-                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer4ataque,4, spritePrincesa);
+                renderer.renderEscenario1(getWidth, getHeight,tierra,spritePlayer4ataque,4, spritePrincesa, spriteArbusto1);
                 spriteAnimado.setSpriteActual(spritePlayer4ataque);}
             if(teclado.key==0){
-                renderer.renderEscenario1(getWidth, getHeight,tierra,spriteAnimado.getSpriteActual(),5, spritePrincesa);}
+                renderer.renderEscenario1(getWidth, getHeight,tierra,spriteAnimado.getSpriteActual(),5, spritePrincesa, spriteArbusto1);}
 
         }
         renderer.render(graphics);

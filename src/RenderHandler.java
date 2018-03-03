@@ -70,7 +70,7 @@ public class RenderHandler {
                     }
     }
 
-    public void renderEscenario1(int width, int height, BufferedImage imagen, BufferedImage imagenSprite, int direccion, BufferedImage imagenPrincesa)
+    public void renderEscenario1(int width, int height, BufferedImage imagen, BufferedImage imagenSprite, int direccion, BufferedImage imagenPrincesa, BufferedImage spriteArbusto1)
     {
         for(int y=0;y<height;y=y+32)
         {
@@ -96,6 +96,10 @@ public class RenderHandler {
             renderImagenSprite(imagenSprite,xPosicion,yPosicion,4,4);}
 
             renderImagenSprite(imagenPrincesa, 500,500,4,4);
+        //Dibujo arbustos
+        for (int i=0;i<1000;i=i+70) {
+            renderImagenSprite(spriteArbusto1, i, 0, 2, 2);
+        }
 
 
     }
